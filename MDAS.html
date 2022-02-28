@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MDAS Calculater </title>
+        <style>
+            body{
+                padding-top: 150px;
+            text-align: center;
+            background-color: rgb(233, 202, 164);
+            }
+            input{
+                width: 180px;
+                height: 30px;
+                margin-bottom: 10px;
+            }
+            button{
+                padding:  5px  20px;
+                width: 60px;
+                margin-bottom: 5px;
+                background-color:rgb(51, 13, 37);
+                color: white;
+            }
+        </style>
+        <body>
+            <input id="screen" type="number"   >
+            <br>
+            
+            <button id="1"onclick="getNumber(1)" > 1 </button>
+            <button  id="2"onclick="getNumber(2)"> 2 </button>
+            <button  id="3"onclick="getNumber(3)"> 3 </button>
+            <br>
+            <button  id="4"onclick="getNumber(4)"> 4 </button>
+            <button  id="5"onclick="getNumber(5)"> 5 </button>
+            <button  id="6"onclick="getNumber(6)"> 6 </button>
+            <br>
+            <button  id="7"onclick="getNumber(7)"> 7 </button>
+            <button  id="8"onclick="getNumber(8)"> 8 </button>
+            <button  id="9"onclick="getNumber(9)"> 9 </button>
+            <br>
+            <button  id="0"onclick="getNumber(0)"> 0 </button>
+            <button  id="mul"onclick="getOperators('*')"> *</button>
+            <button id="div"onclick="getOperators('/')"> / </button>
+            <BR>  
+            <button id="plus"onclick="getOperators('+')">+</button>
+            <button id="min"onclick="getOperators('-')">-</button>
+            <button id="equal"onclick="calculate()">=</button>
+            <BR>
+            <button onclick="window.location.reload()">C </button>
+            <script>
+
+                 var screen=document.getElementById("screen");
+                 var operType='';
+                 var values ={prev:null , new:null , total:null}
+                var isLastBtBtnNumber=false;
+
+                function getNumber(num){
+
+                    if(isLastBtBtnNumber){
+                        var result;
+                        if(values.new){
+                            result= values.new + ''+ num;
+                            values.new= result;
+                            screen.value =result
+                        } else{
+                            result= values.prev + ''+ num;
+                            values.prev= result;
+                            screen.value =result
+                        }
+
+                    } else{
+                            screen.value =num;
+                    if(values.prev){
+                        values.new=num;
+                    }else{
+                        values.prev=num;
+                    }
+                    isLastBtBtnNumber=true;
+
+                        }
+                    
+                    }
+
+                function getOperators(oper){
+                   console.log(values)
+                    operType=oper;  
+                    isLastBtBtnNumber=false;
+                }
+                
+                function calculate(){
+                    console.log('cal',values)
+                    if(!values.new){
+                        return;
+                    }
+                    if(values.new&&values.prev&&operType){
+                       if(operType==="+"){
+                        var newValue =Number (values.prev ) + Number (values.new );
+                        screen.value = newValue;
+                        values.prev= newValue;
+                       }
+
+                       if(operType==="-"){
+                        var newValue = Number (values.prev ) - Number (values.new );
+                        screen.value = newValue;
+                        values.prev= newValue;
+                       }
+                       
+                       if(operType==="/"){
+                        var newValue = Number (values.prev ) / Number (values.new );
+                        screen.value = newValue;
+                        values.prev= newValue;
+                       }
+                       
+                       if(operType==="*"){
+                        var newValue = Number (values.prev ) * Number (values.new );
+                        screen.value = newValue;
+                        values.prev= newValue;
+                       }
+                    }
+                    isLastBtBtnNumber=false;
+                }
+                    
+                
+                
+                    
+                   
+                
+            </script>
+        </body> 
+    </head>
+</html>
